@@ -1,0 +1,1224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+<title>Price Is Right — KOBEQ & SEA 2026</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --blue:#0066FF;
+  --blue-light:#3385FF;
+  --blue-dark:#0047B3;
+  --blue-glow:rgba(0,102,255,0.4);
+  --blue-dim:rgba(0,102,255,0.15);
+  --black:#080808;
+  --dark1:#0d0d0d;
+  --dark2:#141414;
+  --dark3:#1c1c1c;
+  --dark4:#242424;
+  --grey:#3a3a3a;
+  --grey2:#555555;
+  --white:#ffffff;
+  --white-dim:#cccccc;
+  --text-muted:#777777;
+  --green:#00E676;
+  --red:#FF1744;
+  --yellow:#FFD600;
+  --diamond:#00E5FF;
+  --radius:16px;
+  --radius-sm:10px;
+  --glow:0 0 28px rgba(0,102,255,0.55);
+  --glow-sm:0 0 14px rgba(0,102,255,0.35);
+  --transition:0.35s cubic-bezier(0.4,0,0.2,1);
+}
+
+html,body{
+  width:100%;height:100%;
+  background:var(--black);
+  font-family:'Segoe UI',system-ui,-apple-system,sans-serif;
+  color:var(--white);
+  overflow:hidden;
+  -webkit-tap-highlight-color:transparent;
+  touch-action:manipulation;
+  position:fixed;
+}
+
+/* ── Screens ── */
+.screen{
+  position:fixed;inset:0;
+  display:flex;flex-direction:column;align-items:center;
+  overflow-y:auto;overflow-x:hidden;
+  -webkit-overflow-scrolling:touch;
+  transition:opacity var(--transition),transform var(--transition);
+}
+.screen.hidden{
+  opacity:0;pointer-events:none;transform:translateY(16px);
+}
+::-webkit-scrollbar{width:3px;}
+::-webkit-scrollbar-thumb{background:var(--blue);border-radius:2px;}
+
+/* ── Top stripe ── */
+.top-stripe{
+  width:100%;height:4px;flex-shrink:0;
+  background:linear-gradient(90deg,var(--blue-dark),var(--blue),var(--blue-light));
+  box-shadow:0 2px 14px var(--blue-glow);
+}
+
+/* ── Buttons ── */
+.btn{
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  padding:16px;border:none;border-radius:var(--radius-sm);
+  font-size:16px;font-weight:700;letter-spacing:1.5px;
+  text-transform:uppercase;cursor:pointer;width:100%;
+  transition:transform 0.15s,filter 0.15s;
+  -webkit-tap-highlight-color:transparent;
+}
+.btn:active{transform:scale(0.96);filter:brightness(0.85);}
+.btn-primary{
+  background:linear-gradient(135deg,var(--blue),var(--blue-dark));
+  color:var(--white);box-shadow:var(--glow);
+}
+
+/* ══════════════════════════════════════
+   WELCOME SCREEN
+══════════════════════════════════════ */
+#s-welcome{
+  justify-content:flex-start;
+  padding-bottom:48px;
+  background:
+    radial-gradient(ellipse at 25% 15%,rgba(0,102,255,0.1),transparent 55%),
+    radial-gradient(ellipse at 75% 85%,rgba(0,102,255,0.06),transparent 55%),
+    var(--black);
+}
+
+.welcome-hero{
+  width:100%;
+  background:linear-gradient(160deg,#020d1f,#0d0d0d);
+  border-bottom:1px solid var(--dark4);
+  display:flex;flex-direction:column;align-items:center;
+  padding:28px 24px 32px;flex-shrink:0;text-align:center;
+}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(0,102,255,0.12);
+  border:1px solid rgba(0,102,255,0.3);
+  border-radius:20px;padding:6px 18px;
+  font-size:10px;letter-spacing:3px;
+  color:var(--blue-light);text-transform:uppercase;font-weight:700;
+  margin-bottom:20px;
+}
+.hero-title{
+  font-size:34px;font-weight:900;line-height:1;margin-bottom:4px;
+}
+.hero-title .hl{
+  display:block;font-size:50px;
+  color:var(--blue);margin-top:6px;
+  text-shadow:0 0 30px rgba(0,102,255,0.5);
+}
+.hero-desc{
+  font-size:13px;color:var(--text-muted);
+  line-height:1.7;max-width:280px;margin:14px auto 0;
+}
+.hero-chips{
+  display:flex;gap:10px;margin-top:22px;justify-content:center;
+}
+.h-chip{
+  display:flex;flex-direction:column;align-items:center;gap:3px;
+  background:var(--dark2);border:1px solid var(--dark4);
+  border-radius:10px;padding:12px 18px;
+}
+.h-chip-val{font-size:22px;font-weight:900;color:var(--blue);}
+.h-chip-lbl{font-size:9px;color:var(--text-muted);letter-spacing:1.5px;text-transform:uppercase;}
+
+.welcome-form{
+  width:100%;padding:28px 20px;
+  display:flex;flex-direction:column;gap:0;
+}
+.field-label{
+  font-size:10px;letter-spacing:3px;color:var(--blue-light);
+  text-transform:uppercase;font-weight:700;margin-bottom:8px;
+}
+.name-input{
+  width:100%;padding:16px 18px;
+  background:var(--dark2);
+  border:2px solid var(--dark4);
+  border-radius:var(--radius-sm);
+  color:var(--white);font-size:18px;font-weight:600;
+  outline:none;margin-bottom:24px;
+  transition:border-color 0.25s,box-shadow 0.25s;
+  -webkit-appearance:none;
+}
+.name-input:focus{
+  border-color:var(--blue);
+  box-shadow:var(--glow-sm);
+}
+.name-input::placeholder{color:var(--grey2);}
+
+.score-label{
+  font-size:10px;letter-spacing:3px;color:var(--blue-light);
+  text-transform:uppercase;font-weight:700;margin-bottom:12px;
+}
+.scoring-grid{
+  display:flex;flex-direction:column;
+  background:var(--dark2);border:1px solid var(--dark4);
+  border-radius:var(--radius);overflow:hidden;margin-bottom:24px;
+}
+.sg-row{
+  display:flex;align-items:center;gap:14px;
+  padding:13px 16px;border-bottom:1px solid var(--dark4);
+}
+.sg-row:last-child{border-bottom:none;}
+.sg-icon{font-size:22px;width:28px;text-align:center;flex-shrink:0;}
+.sg-text{flex:1;}
+.sg-label{font-size:13px;font-weight:700;}
+.sg-sub{font-size:10px;color:var(--text-muted);margin-top:2px;}
+.sg-pts{font-size:14px;font-weight:800;color:var(--blue-light);flex-shrink:0;}
+
+/* ══════════════════════════════════════
+   GAME SCREEN
+══════════════════════════════════════ */
+#s-game{
+  justify-content:flex-start;
+  background:var(--black);
+  overflow:hidden;
+  padding-bottom:0;
+}
+
+/* Top bar */
+.game-topbar{
+  width:100%;flex-shrink:0;
+  background:var(--dark2);
+  border-bottom:1px solid var(--dark4);
+  padding:8px 14px;
+  display:flex;align-items:center;
+  justify-content:space-between;gap:6px;
+}
+.gtb-player{
+  display:flex;align-items:center;gap:8px;
+  min-width:0;flex:1;
+}
+.gtb-avatar{
+  width:32px;height:32px;border-radius:50%;flex-shrink:0;
+  background:linear-gradient(135deg,var(--blue),var(--blue-dark));
+  display:flex;align-items:center;justify-content:center;
+  font-size:14px;font-weight:900;
+  box-shadow:0 0 10px rgba(0,102,255,0.4);
+}
+.gtb-name{
+  font-size:13px;font-weight:600;
+  white-space:nowrap;overflow:hidden;
+  text-overflow:ellipsis;max-width:100px;
+}
+.gtb-center{
+  display:flex;flex-direction:column;
+  align-items:center;flex-shrink:0;
+}
+.gtb-round-lbl{
+  font-size:8px;color:var(--text-muted);
+  letter-spacing:2px;text-transform:uppercase;
+}
+.gtb-round-val{font-size:20px;font-weight:900;line-height:1.1;}
+.gtb-score-wrap{
+  display:flex;flex-direction:column;
+  align-items:flex-end;flex-shrink:0;
+}
+.gtb-score-lbl{
+  font-size:8px;color:var(--text-muted);
+  letter-spacing:2px;text-transform:uppercase;
+}
+.gtb-score-val{
+  font-size:20px;font-weight:900;
+  color:var(--blue-light);line-height:1.1;
+}
+
+/* Progress bar */
+.progress-wrap{
+  width:100%;height:3px;
+  background:var(--dark3);flex-shrink:0;
+}
+.progress-fill{
+  height:100%;
+  background:linear-gradient(90deg,var(--blue-dark),var(--blue-light));
+  transition:width 0.5s ease;
+  box-shadow:0 0 8px var(--blue);
+}
+
+/* Product image area */
+.product-area{
+  width:100%;flex:1;
+  position:relative;overflow:hidden;
+  background:var(--dark3);min-height:0;
+}
+.product-img{
+  width:100%;height:100%;
+  object-fit:contain;display:block;
+  transition:opacity 1s ease;
+}
+
+/* ── Countdown bar — TOP of image ── */
+.countdown-bar-wrap{
+  position:absolute;top:0;left:0;right:0;
+  height:6px;
+  background:rgba(255,255,255,0.1);
+  z-index:10;
+}
+.countdown-bar-fill{
+  height:100%;width:100%;
+  background:linear-gradient(90deg,var(--blue-dark),var(--blue),var(--blue-light));
+  box-shadow:0 0 10px var(--blue);
+  transition:width 1s linear, background 0.5s ease;
+  transform-origin:left center;
+}
+.countdown-bar-fill.urgent{
+  background:linear-gradient(90deg,#c0000a,var(--red));
+  box-shadow:0 0 10px var(--red);
+}
+
+/* Overlays */
+.img-overlay-top{
+  position:absolute;top:6px;left:0;right:0;
+  padding:10px 12px;
+  background:linear-gradient(to bottom,rgba(0,0,0,0.7),transparent);
+  display:flex;align-items:center;justify-content:space-between;
+  pointer-events:none;z-index:5;
+}
+.img-brand-tag{
+  background:rgba(0,0,0,0.65);
+  border:1px solid rgba(255,255,255,0.12);
+  backdrop-filter:blur(4px);
+  border-radius:6px;padding:4px 10px;
+  font-size:10px;font-weight:700;
+  color:var(--white);letter-spacing:1.5px;text-transform:uppercase;
+}
+.img-cat-tag{
+  background:rgba(0,102,255,0.75);
+  border-radius:6px;padding:4px 10px;
+  font-size:10px;font-weight:700;
+  color:var(--white);letter-spacing:1px;
+}
+.img-overlay-bottom{
+  position:absolute;bottom:0;left:0;right:0;
+  padding:16px 14px 12px;
+  background:linear-gradient(to top,rgba(0,0,0,0.88),transparent);
+  pointer-events:none;z-index:5;
+}
+.img-prod-name{
+  font-size:14px;font-weight:800;
+  color:var(--white);line-height:1.35;
+}
+
+/* Countdown number overlay */
+.countdown-overlay{
+  position:absolute;inset:0;
+  display:flex;align-items:center;justify-content:center;
+  pointer-events:none;z-index:8;
+  opacity:0;transition:opacity 0.2s;
+}
+.countdown-overlay.visible{opacity:1;}
+.countdown-number{
+  font-size:130px;font-weight:900;
+  color:var(--white);line-height:1;
+  text-shadow:
+    0 0 40px rgba(0,102,255,1),
+    0 0 80px rgba(0,102,255,0.6),
+    0 6px 24px rgba(0,0,0,0.95);
+  animation:countPop 0.45s cubic-bezier(0.36,0.07,0.19,0.97);
+}
+@keyframes countPop{
+  0%{transform:scale(1.8);opacity:0;}
+  60%{transform:scale(0.92);opacity:1;}
+  100%{transform:scale(1);opacity:1;}
+}
+.countdown-number.urgent{
+  color:var(--red);
+  text-shadow:
+    0 0 40px rgba(255,23,68,1),
+    0 0 80px rgba(255,23,68,0.6),
+    0 6px 24px rgba(0,0,0,0.95);
+}
+
+/* Image loader */
+.img-loader-wrap{
+  position:absolute;inset:0;
+  display:flex;align-items:center;justify-content:center;
+  background:var(--dark3);font-size:44px;z-index:6;
+  transition:opacity 0.3s;
+}
+
+/* ── Input zone ── */
+.input-zone{
+  width:100%;flex-shrink:0;
+  background:var(--dark2);
+  border-top:1px solid var(--dark4);
+  padding:12px 14px 16px;
+  display:flex;flex-direction:column;gap:10px;
+}
+.input-label{
+  font-size:10px;letter-spacing:3px;
+  color:var(--blue-light);text-transform:uppercase;
+  font-weight:700;text-align:center;
+}
+.aed-wrap{
+  display:flex;align-items:stretch;
+  background:var(--dark3);
+  border:2px solid var(--dark4);
+  border-radius:var(--radius-sm);overflow:hidden;
+  transition:border-color 0.25s,box-shadow 0.25s;
+}
+.aed-wrap:focus-within{
+  border-color:var(--blue);
+  box-shadow:var(--glow-sm);
+}
+.aed-sym{
+  padding:14px 16px;
+  background:rgba(0,102,255,0.15);
+  border-right:1px solid var(--dark4);
+  font-size:15px;font-weight:800;
+  color:var(--blue-light);
+  display:flex;align-items:center;
+  flex-shrink:0;letter-spacing:0.5px;
+}
+.aed-input{
+  flex:1;padding:14px 12px;
+  background:transparent;border:none;outline:none;
+  color:var(--white);font-size:28px;font-weight:700;
+  font-variant-numeric:tabular-nums;width:100%;
+  -webkit-appearance:none;
+}
+.aed-input::placeholder{color:var(--grey2);font-size:20px;}
+.aed-input::-webkit-inner-spin-button,
+.aed-input::-webkit-outer-spin-button{-webkit-appearance:none;}
+
+/* Locked */
+.locked-zone{
+  display:none;
+  background:var(--dark3);
+  border:1px solid var(--dark4);
+  border-radius:var(--radius-sm);
+  padding:16px;text-align:center;
+}
+.locked-lbl{
+  font-size:10px;color:var(--text-muted);
+  letter-spacing:2px;text-transform:uppercase;margin-bottom:4px;
+}
+.locked-val{font-size:32px;font-weight:900;color:var(--blue-light);}
+.locked-sub{font-size:11px;color:var(--text-muted);margin-top:4px;}
+
+/* ══════════════════════════════════════
+   WAITING SCREEN
+══════════════════════════════════════ */
+#s-waiting{
+  justify-content:center;align-items:center;
+  padding:28px;gap:20px;text-align:center;
+  background:
+    radial-gradient(ellipse at center,#020d1f,var(--black) 70%);
+}
+.wait-icon{font-size:72px;animation:float 2.5s ease-in-out infinite;}
+@keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-14px);}}
+.wait-title{font-size:26px;font-weight:900;}
+.wait-sub{
+  font-size:13px;color:var(--text-muted);
+  line-height:1.7;max-width:280px;
+}
+.wait-score-card{
+  background:var(--dark2);
+  border:2px solid var(--blue);
+  border-radius:var(--radius);
+  padding:24px 48px;
+  box-shadow:var(--glow);
+}
+.wsc-lbl{
+  font-size:10px;color:var(--blue-light);
+  letter-spacing:3px;text-transform:uppercase;margin-bottom:6px;
+}
+.wsc-val{font-size:52px;font-weight:900;line-height:1;}
+.wsc-sub{font-size:12px;color:var(--text-muted);margin-top:6px;}
+
+/* ══════════════════════════════════════
+   REVEAL SCREEN
+══════════════════════════════════════ */
+#s-reveal{
+  justify-content:flex-start;
+  background:var(--black);
+  padding-bottom:52px;
+}
+.reveal-hero{
+  width:100%;
+  background:linear-gradient(160deg,#020d1f,#0d0d0d);
+  border-bottom:1px solid var(--dark4);
+  padding:28px 20px 32px;
+  display:flex;flex-direction:column;
+  align-items:center;text-align:center;
+  flex-shrink:0;gap:6px;
+}
+.rv-trophy{
+  font-size:64px;
+  animation:bounceIn 0.6s ease;
+}
+@keyframes bounceIn{
+  0%{transform:scale(0);}
+  70%{transform:scale(1.2);}
+  100%{transform:scale(1);}
+}
+.rv-title{font-size:28px;font-weight:900;}
+.rv-sub{font-size:13px;color:var(--text-muted);}
+
+.rv-content{
+  width:100%;padding:18px 14px;
+  display:flex;flex-direction:column;gap:16px;
+}
+
+/* Final score card */
+.final-score-card{
+  background:linear-gradient(135deg,rgba(0,102,255,0.15),rgba(0,102,255,0.05));
+  border:2px solid var(--blue);
+  border-radius:var(--radius);
+  padding:22px;text-align:center;
+  box-shadow:var(--glow);
+}
+.fsc-lbl{
+  font-size:10px;color:var(--blue-light);
+  letter-spacing:3px;text-transform:uppercase;margin-bottom:6px;
+}
+.fsc-name{font-size:20px;font-weight:800;margin-bottom:6px;}
+.fsc-pts{font-size:44px;font-weight:900;line-height:1;}
+.fsc-pts span{font-size:16px;color:var(--text-muted);}
+.fsc-exact{
+  display:inline-flex;align-items:center;gap:6px;
+  margin-top:12px;
+  background:rgba(0,229,255,0.1);
+  border:1px solid rgba(0,229,255,0.3);
+  border-radius:20px;padding:5px 16px;
+  font-size:11px;font-weight:700;color:var(--diamond);
+}
+
+.s-label{
+  font-size:10px;letter-spacing:3px;color:var(--blue-light);
+  text-transform:uppercase;font-weight:700;margin-bottom:10px;
+}
+
+/* Exact callout */
+.exact-box{
+  background:rgba(0,229,255,0.05);
+  border:1px solid rgba(0,229,255,0.2);
+  border-radius:var(--radius);padding:16px;
+}
+.exact-box-title{
+  font-size:11px;letter-spacing:2px;color:var(--diamond);
+  text-transform:uppercase;font-weight:700;margin-bottom:10px;
+}
+.exact-item{
+  font-size:13px;color:var(--white-dim);
+  padding:7px 0;border-bottom:1px solid rgba(0,229,255,0.08);
+  line-height:1.5;
+}
+.exact-item:last-child{border-bottom:none;}
+.exact-item strong{color:var(--white);}
+
+/* Breakdown */
+.bd-item{
+  background:var(--dark2);border:1px solid var(--dark4);
+  border-radius:var(--radius);overflow:hidden;
+}
+.bd-header{
+  display:flex;align-items:center;gap:12px;
+  padding:12px;border-bottom:1px solid var(--dark4);
+}
+.bd-img{
+  width:54px;height:54px;border-radius:8px;
+  object-fit:contain;background:var(--dark3);flex-shrink:0;
+}
+.bd-info{flex:1;min-width:0;}
+.bd-name{font-size:12px;font-weight:700;line-height:1.3;margin-bottom:3px;}
+.bd-brand{font-size:10px;color:var(--text-muted);letter-spacing:1px;text-transform:uppercase;}
+.bd-actual{
+  font-size:14px;font-weight:900;
+  color:var(--blue-light);flex-shrink:0;white-space:nowrap;
+}
+.bd-result{
+  display:flex;align-items:center;
+  justify-content:space-between;
+  padding:11px 12px;
+}
+.bd-guess-lbl{font-size:11px;color:var(--text-muted);}
+.bd-guess-val{font-size:14px;font-weight:600;color:var(--white-dim);}
+.bd-diff{font-size:10px;color:var(--text-muted);margin-top:2px;}
+.bd-badge{
+  display:flex;align-items:center;gap:4px;
+  font-size:12px;font-weight:800;white-space:nowrap;
+}
+
+/* Confetti */
+#confetti-canvas{
+  position:fixed;inset:0;
+  pointer-events:none;z-index:9999;
+}
+</style>
+</head>
+<body>
+
+<canvas id="confetti-canvas"></canvas>
+
+<!-- ══════════════════════════
+     WELCOME
+══════════════════════════ -->
+<div class="screen" id="s-welcome">
+  <div class="top-stripe"></div>
+
+  <div class="welcome-hero">
+    <div class="hero-badge">🌍 KOBEQ &amp; SEA · 2026</div>
+    <div class="hero-title">
+      The Price
+      <span class="hl">Is Right!</span>
+    </div>
+    <p class="hero-desc">
+      Guess the price of 10 real products from brands you know.
+      How close can you get?
+    </p>
+    <div class="hero-chips">
+      <div class="h-chip">
+        <div class="h-chip-val">10</div>
+        <div class="h-chip-lbl">Products</div>
+      </div>
+      <div class="h-chip">
+        <div class="h-chip-val">15s</div>
+        <div class="h-chip-lbl">Per Round</div>
+      </div>
+      <div class="h-chip">
+        <div class="h-chip-val">💎</div>
+        <div class="h-chip-lbl">Exact Bonus</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="welcome-form">
+    <div class="field-label">Your Name</div>
+    <input
+      class="name-input"
+      id="inp-name"
+      type="text"
+      placeholder="Enter your name…"
+      maxlength="25"
+      autocomplete="off"
+      autocorrect="off"
+      autocapitalize="words"
+    />
+
+    <div class="score-label">How Scoring Works</div>
+    <div class="scoring-grid">
+      <div class="sg-row">
+        <div class="sg-icon">💎</div>
+        <div class="sg-text">
+          <div class="sg-label">Exact Match!</div>
+          <div class="sg-sub">You nailed the exact price</div>
+        </div>
+        <div class="sg-pts">1500 pts</div>
+      </div>
+      <div class="sg-row">
+        <div class="sg-icon">🎯</div>
+        <div class="sg-text">
+          <div class="sg-label">Bullseye</div>
+          <div class="sg-sub">Within 5% of actual price</div>
+        </div>
+        <div class="sg-pts">1000 pts</div>
+      </div>
+      <div class="sg-row">
+        <div class="sg-icon">🔥</div>
+        <div class="sg-text">
+          <div class="sg-label">Hot</div>
+          <div class="sg-sub">Within 15% of actual price</div>
+        </div>
+        <div class="sg-pts">700 pts</div>
+      </div>
+      <div class="sg-row">
+        <div class="sg-icon">👍</div>
+        <div class="sg-text">
+          <div class="sg-label">Warm</div>
+          <div class="sg-sub">Within 30% of actual price</div>
+        </div>
+        <div class="sg-pts">400 pts</div>
+      </div>
+      <div class="sg-row">
+        <div class="sg-icon">❄️</div>
+        <div class="sg-text">
+          <div class="sg-label">Cold</div>
+          <div class="sg-sub">Within 50% of actual price</div>
+        </div>
+        <div class="sg-pts">100 pts</div>
+      </div>
+      <div class="sg-row">
+        <div class="sg-icon">💀</div>
+        <div class="sg-text">
+          <div class="sg-label">Miss</div>
+          <div class="sg-sub">More than 50% off actual price</div>
+        </div>
+        <div class="sg-pts">0 pts</div>
+      </div>
+    </div>
+
+    <button class="btn btn-primary" id="btn-start">Let's Play →</button>
+    <p style="text-align:center;margin-top:14px;font-size:11px;color:var(--text-muted);line-height:1.7;">
+      All prices in UAE Dirhams (AED)<br/>Real products · Real brands
+    </p>
+  </div>
+</div>
+
+<!-- ══════════════════════════
+     GAME
+══════════════════════════ -->
+<div class="screen hidden" id="s-game">
+  <div class="top-stripe"></div>
+
+  <div class="game-topbar">
+    <div class="gtb-player">
+      <div class="gtb-avatar" id="g-avatar">?</div>
+      <div class="gtb-name" id="g-name">Player</div>
+    </div>
+    <div class="gtb-center">
+      <div class="gtb-round-lbl">Product</div>
+      <div class="gtb-round-val">
+        <span id="g-cur">1</span>
+        <span style="color:var(--text-muted);font-size:13px;">/10</span>
+      </div>
+    </div>
+    <div class="gtb-score-wrap">
+      <div class="gtb-score-lbl">Score</div>
+      <div class="gtb-score-val" id="g-score">0</div>
+    </div>
+  </div>
+
+  <div class="progress-wrap">
+    <div class="progress-fill" id="g-progress" style="width:0%"></div>
+  </div>
+
+  <!-- Product area -->
+  <div class="product-area" id="g-product-area">
+
+    <!-- Countdown bar at top -->
+    <div class="countdown-bar-wrap">
+      <div class="countdown-bar-fill" id="g-bar-fill"></div>
+    </div>
+
+    <!-- Loader -->
+    <div class="img-loader-wrap" id="g-loader">⏳</div>
+
+    <!-- Product image -->
+    <img class="product-img" id="g-img" src="" alt="Product"/>
+
+    <!-- Top overlay -->
+    <div class="img-overlay-top">
+      <div class="img-brand-tag" id="g-brand">Brand</div>
+      <div class="img-cat-tag" id="g-cat">Category</div>
+    </div>
+
+    <!-- Bottom overlay -->
+    <div class="img-overlay-bottom">
+      <div class="img-prod-name" id="g-prod-name">Product Name</div>
+    </div>
+
+    <!-- Big countdown number -->
+    <div class="countdown-overlay" id="g-countdown-overlay">
+      <div class="countdown-number" id="g-countdown-num">5</div>
+    </div>
+
+  </div>
+
+  <!-- Input zone -->
+  <div class="input-zone">
+    <div class="input-label">What's the price in AED?</div>
+
+    <div id="g-input-section">
+      <div class="aed-wrap">
+        <div class="aed-sym">AED</div>
+        <input
+          class="aed-input"
+          id="g-price-input"
+          type="number"
+          inputmode="numeric"
+          placeholder="0"
+          min="0"
+          max="99999"
+        />
+      </div>
+      <button
+        class="btn btn-primary"
+        style="margin-top:10px;"
+        onclick="submitGuess()"
+      >Lock In My Price →</button>
+    </div>
+
+    <div class="locked-zone" id="g-locked">
+      <div class="locked-lbl">Your Guess</div>
+      <div class="locked-val" id="g-locked-val">AED 0</div>
+      <div class="locked-sub">Locked ✓ — Next product coming up…</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══════════════════════════
+     WAITING
+══════════════════════════ -->
+<div class="screen hidden" id="s-waiting">
+  <div class="top-stripe" style="position:absolute;top:0;left:0;right:0;"></div>
+  <div class="wait-icon">🎉</div>
+  <div class="wait-title">All Done!</div>
+  <div class="wait-sub">
+    You've guessed all 10 products.<br/>
+    Tap below when the mediator says "Reveal!"
+  </div>
+  <div class="wait-score-card">
+    <div class="wsc-lbl">Your Score</div>
+    <div class="wsc-val" id="w-score">0</div>
+    <div class="wsc-sub" id="w-name">points</div>
+  </div>
+  <button
+    class="btn btn-primary"
+    style="max-width:300px;"
+    onclick="showReveal()"
+  >See The Big Reveal 🎉</button>
+</div>
+
+<!-- ══════════════════════════
+     REVEAL
+══════════════════════════ -->
+<div class="screen hidden" id="s-reveal">
+  <div class="top-stripe"></div>
+
+  <div class="reveal-hero">
+    <div class="rv-trophy">🏆</div>
+    <div class="rv-title">The Big Reveal!</div>
+    <div class="rv-sub" id="rv-sub">Here's how you did</div>
+  </div>
+
+  <div class="rv-content">
+
+    <div class="final-score-card">
+      <div class="fsc-lbl">Final Score</div>
+      <div class="fsc-name" id="rv-player-name">Player</div>
+      <div class="fsc-pts" id="rv-pts">0 <span>points</span></div>
+      <div class="fsc-exact" id="rv-exact-badge" style="display:none;">
+        💎 Exact Match Champion
+      </div>
+    </div>
+
+    <div id="rv-exact-section" style="display:none;">
+      <div class="s-label">💎 Exact Matches</div>
+      <div class="exact-box">
+        <div class="exact-box-title">You nailed these exactly!</div>
+        <div id="rv-exact-list"></div>
+      </div>
+    </div>
+
+    <div>
+      <div class="s-label">Product by Product</div>
+      <div id="rv-breakdown"
+        style="display:flex;flex-direction:column;gap:10px;">
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+/* ════════════════════════════════════
+   PRODUCTS DATA
+════════════════════════════════════ */
+const PRODUCTS = [
+  {
+    id:1,
+    name:'Da Vinci Office Chair',
+    brand:'Homecentre',
+    category:'Home',icon:'🏠',price:1099,
+    image:'https://media.homecentre.com/i/homecentre/167182737-167182737-HC31012025_01-2100.jpg'
+  },
+  {
+    id:2,
+    name:'Cherry Blossom 200-Light Decorative Tree — 180cm',
+    brand:'Homecentre',
+    category:'Home',icon:'🏠',price:99,
+    image:'https://media.homecentre.com/i/homecentre/165947972-165947972-HC10172023_01-2100.jpg'
+  },
+  {
+    id:3,
+    name:'Milan 5-Piece King Bedroom Set — 180×200cm',
+    brand:'Homebox',
+    category:'Home',icon:'🏠',price:2499,
+    image:'https://media.homeboxstores.com/i/homebox/168306383-168306383-HMBX14072025N_12-2100.jpg'
+  },
+  {
+    id:4,
+    name:'Le Confort Men Lace-Up Leather Derby Shoes',
+    brand:'Shoemart',
+    category:'Footwear',icon:'👟',price:349,
+    image:'https://media.centrepointstores.com/i/centrepoint/A16-2087-71BROWN-A16-2087-71-SMMSM26220426_01-2100.jpg'
+  },
+  {
+    id:5,
+    name:'Plain Sweatshirt',
+    brand:'Max Fashion',
+    category:'Clothing',icon:'👕',price:39,
+    image:'https://media.maxfashion.com/i/max/C25MBSBCKSW102BLACKDARK-C25MBSBCKSW102-MXWIN25240625_01-2100.jpg'
+  },
+  {
+    id:6,
+    name:'Checked Regular Fit Flannel Shirt',
+    brand:'Max Fashion',
+    category:'Clothing',icon:'👕',price:49,
+    image:'https://media.maxfashion.com/i/max/C26MCSFEBDRLY313BROWNMULTISHADE-C26MCSFEBDRLY313WINTER264-MXWIN26090726_08-2100.jpg'
+  },
+  {
+    id:7,
+    name:"Issey Miyake Le Sel D'Issey Eau de Parfum 100ml",
+    brand:'Issey Miyake',
+    category:'Lifestyle',icon:'✨',price:397,
+    image:'https://cdn.media.amplience.net/i/lmg/169460667_02-2100.jpg'
+  },
+  {
+    id:8,
+    name:'Lee Cooper Regular Fit Jeans',
+    brand:'Splash',
+    category:'Clothing',icon:'👕',price:119,
+    image:'https://media.centrepointstores.com/i/centrepoint/3022918-LCWORKWEAR-SPW26200826_05-2100.jpg'
+  },
+  {
+    id:9,
+    name:'Splash Iconic Striped Shirt',
+    brand:'Splash',
+    category:'Clothing',icon:'👕',price:89,
+    image:'https://media.centrepointstores.com/i/centrepoint/2307127-HQ179109-SPWIN26090526_01-2100.jpg'
+  },
+  {
+    id:10,
+    name:'Kappa Men Lace-Up Sneakers',
+    brand:'Shoemart',
+    category:'Footwear',icon:'👟',price:179,
+    image:'https://media.centrepointstores.com/i/centrepoint/SS26M071NAVY-SS26M071-SMSM26081125_01-2100.jpg'
+  }
+];
+
+const TIMER = 15;
+
+/* ════════════════════════════════════
+   STATE
+════════════════════════════════════ */
+let S = {
+  name:'',idx:0,
+  answers:[],totalScore:0,
+  timerInterval:null,
+  timerLeft:TIMER,
+  submitted:false,
+};
+
+/* ════════════════════════════════════
+   UTILS
+════════════════════════════════════ */
+function showScreen(id){
+  document.querySelectorAll('.screen').forEach(s=>{
+    s.classList.toggle('hidden',s.id!==id);
+  });
+  const el=document.getElementById(id);
+  if(el) el.scrollTop=0;
+}
+
+function scoreGuess(guess,actual){
+  if(guess===actual)
+    return{pts:1500,zone:'💎 Exact!',exact:true,color:'#00E5FF'};
+  const d=Math.abs(guess-actual)/actual;
+  if(d<=0.05) return{pts:1000,zone:'🎯 Bullseye',exact:false,color:'#00E676'};
+  if(d<=0.15) return{pts:700, zone:'🔥 Hot',     exact:false,color:'#0066FF'};
+  if(d<=0.30) return{pts:400, zone:'👍 Warm',    exact:false,color:'#FFD600'};
+  if(d<=0.50) return{pts:100, zone:'❄️ Cold',    exact:false,color:'#3385FF'};
+  return          {pts:0,   zone:'💀 Miss',     exact:false,color:'#FF1744'};
+}
+
+/* ════════════════════════════════════
+   WELCOME
+════════════════════════════════════ */
+document.getElementById('btn-start').addEventListener('click',startGame);
+document.getElementById('inp-name').addEventListener('keydown',e=>{
+  if(e.key==='Enter') startGame();
+});
+
+function startGame(){
+  const name=document.getElementById('inp-name').value.trim();
+  if(!name){
+    const inp=document.getElementById('inp-name');
+    inp.style.borderColor='var(--red)';
+    inp.placeholder='Please enter your name!';
+    inp.focus();
+    return;
+  }
+  S.name=name;S.idx=0;S.answers=[];S.totalScore=0;
+  document.getElementById('g-avatar').textContent=name.charAt(0).toUpperCase();
+  document.getElementById('g-name').textContent=name;
+  showScreen('s-game');
+  loadProduct(0);
+}
+
+/* ════════════════════════════════════
+   LOAD PRODUCT
+════════════════════════════════════ */
+function loadProduct(idx){
+  const p=PRODUCTS[idx];
+  S.submitted=false;
+
+  /* Top bar */
+  document.getElementById('g-cur').textContent   =idx+1;
+  document.getElementById('g-score').textContent =S.totalScore.toLocaleString();
+  document.getElementById('g-progress').style.width=((idx/PRODUCTS.length)*100)+'%';
+
+  /* Overlays */
+  document.getElementById('g-brand').textContent    =p.brand;
+  document.getElementById('g-cat').textContent      =p.icon+' '+p.category;
+  document.getElementById('g-prod-name').textContent=p.name;
+
+  /* Image */
+  const img   =document.getElementById('g-img');
+  const loader=document.getElementById('g-loader');
+  img.style.opacity='1';
+  img.style.transition='none';
+  loader.style.display='flex';
+  img.style.display='none';
+  img.onload=()=>{
+    loader.style.display='none';
+    img.style.display='block';
+    /* Re-enable smooth fade transition after load */
+    img.style.transition='opacity 1s ease';
+  };
+  img.onerror=()=>{
+    loader.innerHTML='🖼️';
+  };
+  img.src=p.image;
+
+  /* Reset countdown bar */
+  const bar=document.getElementById('g-bar-fill');
+  bar.style.transition='none';
+  bar.style.width='100%';
+  bar.classList.remove('urgent');
+
+  /* Hide countdown number */
+  document.getElementById('g-countdown-overlay').classList.remove('visible');
+
+  /* Reset input */
+  document.getElementById('g-price-input').value='';
+  document.getElementById('g-input-section').style.display='block';
+  document.getElementById('g-locked').style.display='none';
+
+  setTimeout(()=>{
+    document.getElementById('g-price-input').focus();
+  },350);
+
+  startTimer();
+}
+
+/* ════════════════════════════════════
+   TIMER
+════════════════════════════════════ */
+function startTimer(){
+  clearInterval(S.timerInterval);
+  S.timerLeft=TIMER;
+
+  /* Animate bar shrinking */
+  const bar=document.getElementById('g-bar-fill');
+  setTimeout(()=>{
+    bar.style.transition=`width ${TIMER}s linear`;
+    bar.style.width='0%';
+  },50);
+
+  S.timerInterval=setInterval(()=>{
+    S.timerLeft--;
+
+    /* Fade image: 1 → 0.12 linearly */
+    const img=document.getElementById('g-img');
+    const opacity=Math.max(0.12,S.timerLeft/TIMER);
+    img.style.opacity=opacity;
+
+    /* Bar urgent colour at 5s */
+    if(S.timerLeft<=5){
+      document.getElementById('g-bar-fill').classList.add('urgent');
+    }
+
+    /* Big countdown 5→1 */
+    if(S.timerLeft<=5 && S.timerLeft>0){
+      const overlay=document.getElementById('g-countdown-overlay');
+      const numEl  =document.getElementById('g-countdown-num');
+      overlay.classList.add('visible');
+      numEl.textContent=S.timerLeft;
+      numEl.className='countdown-number'+(S.timerLeft<=3?' urgent':'');
+      /* Retrigger pop animation */
+      numEl.style.animation='none';
+      void numEl.offsetWidth;
+      numEl.style.animation='countPop 0.45s cubic-bezier(0.36,0.07,0.19,0.97)';
+    }
+
+    if(S.timerLeft<=0){
+      clearInterval(S.timerInterval);
+      if(!S.submitted) autoSubmit();
+    }
+  },1000);
+}
+
+function autoSubmit(){
+  const val=parseInt(document.getElementById('g-price-input').value)||0;
+  processGuess(val);
+}
+
+/* ════════════════════════════════════
+   SUBMIT
+════════════════════════════════════ */
+function submitGuess(){
+  if(S.submitted)return;
+  clearInterval(S.timerInterval);
+  /* Stop bar where it is */
+  const bar=document.getElementById('g-bar-fill');
+  const currentWidth=bar.getBoundingClientRect().width;
+  const parentWidth=bar.parentElement.getBoundingClientRect().width;
+  bar.style.transition='none';
+  bar.style.width=((currentWidth/parentWidth)*100)+'%';
+  const val=parseInt(document.getElementById('g-price-input').value)||0;
+  processGuess(val);
+}
+
+function processGuess(guess){
+  S.submitted=true;
+  const p     =PRODUCTS[S.idx];
+  const result=scoreGuess(guess,p.price);
+  S.totalScore+=result.pts;
+  S.answers.push({
+    idx:S.idx,guess,actual:p.price,
+    pts:result.pts,zone:result.zone,
+    exact:result.exact,color:result.color,
+  });
+
+  /* Hide countdown */
+  document.getElementById('g-countdown-overlay').classList.remove('visible');
+
+  /* Show locked */
+  document.getElementById('g-input-section').style.display='none';
+  document.getElementById('g-locked').style.display='block';
+  document.getElementById('g-locked-val').textContent='AED '+guess.toLocaleString();
+  document.getElementById('g-score').textContent=S.totalScore.toLocaleString();
+
+  setTimeout(()=>{
+    const next=S.idx+1;
+    if(next<PRODUCTS.length){
+      S.idx=next;
+      loadProduct(next);
+    } else {
+      endGame();
+    }
+  },1800);
+}
+
+/* ════════════════════════════════════
+   END GAME
+════════════════════════════════════ */
+function endGame(){
+  document.getElementById('g-progress').style.width='100%';
+  document.getElementById('w-score').textContent=S.totalScore.toLocaleString();
+  document.getElementById('w-name').textContent=S.name+' — ready for the reveal!';
+  showScreen('s-waiting');
+}
+
+/* ════════════════════════════════════
+   REVEAL
+════════════════════════════════════ */
+function showReveal(){
+  const exactMatches=S.answers.filter(a=>a.exact);
+
+  document.getElementById('rv-sub').textContent=`Here's how you did, ${S.name}!`;
+  document.getElementById('rv-player-name').textContent=S.name;
+  document.getElementById('rv-pts').innerHTML=
+    S.totalScore.toLocaleString()+' <span>points</span>';
+
+  if(exactMatches.length>0){
+    document.getElementById('rv-exact-badge').style.display='inline-flex';
+    document.getElementById('rv-exact-section').style.display='block';
+    document.getElementById('rv-exact-list').innerHTML=
+      exactMatches.map(a=>{
+        const p=PRODUCTS[a.idx];
+        return `<div class="exact-item">
+          <strong>${p.name}</strong> — AED ${a.actual.toLocaleString()} 💎
+        </div>`;
+      }).join('');
+  }
+
+  document.getElementById('rv-breakdown').innerHTML=
+    S.answers.map(a=>{
+      const p=PRODUCTS[a.idx];
+      const diff=
+        a.guess===a.actual?'Exact! 💎':
+        a.guess>a.actual?`+AED ${(a.guess-a.actual).toLocaleString()} over`:
+        `-AED ${(a.actual-a.guess).toLocaleString()} under`;
+      return `
+        <div class="bd-item">
+          <div class="bd-header">
+            <img class="bd-img"
+              src="${p.image}" alt=""
+              onerror="this.style.display='none'"/>
+            <div class="bd-info">
+              <div class="bd-name">${p.name}</div>
+              <div class="bd-brand">${p.brand} · ${p.icon} ${p.category}</div>
+            </div>
+            <div class="bd-actual">AED ${a.actual.toLocaleString()}</div>
+          </div>
+          <div class="bd-result">
+            <div>
+              <div class="bd-guess-lbl">Your guess</div>
+              <div class="bd-guess-val">AED ${a.guess.toLocaleString()}</div>
+              <div class="bd-diff">${diff}</div>
+            </div>
+            <div class="bd-badge" style="color:${a.color};">
+              ${a.zone} &nbsp;+${a.pts.toLocaleString()}
+            </div>
+          </div>
+        </div>
+      `;
+    }).join('');
+
+  showScreen('s-reveal');
+  launchConfetti();
+}
+
+/* ════════════════════════════════════
+   CONFETTI
+════════════════════════════════════ */
+function launchConfetti(){
+  const c=document.getElementById('confetti-canvas');
+  const ctx=c.getContext('2d');
+  c.width=window.innerWidth;
+  c.height=window.innerHeight;
+  const cols=['#0066FF','#3385FF','#ffffff','#00E5FF','#00E676','#FFD600'];
+  const ps=Array.from({length:100},()=>({
+    x:Math.random()*c.width,y:-20,
+    r:Math.random()*6+3,
+    col:cols[Math.floor(Math.random()*cols.length)],
+    vx:(Math.random()-0.5)*4,
+    vy:Math.random()*3+2,
+    angle:Math.random()*360,
+    spin:(Math.random()-0.5)*6,
+    shape:Math.random()>0.5?'rect':'circle',
+  }));
+  let f=0;
+  (function draw(){
+    ctx.clearRect(0,0,c.width,c.height);
+    ps.forEach(p=>{
+      ctx.save();ctx.translate(p.x,p.y);
+      ctx.rotate(p.angle*Math.PI/180);
+      ctx.fillStyle=p.col;
+      ctx.globalAlpha=Math.max(0,1-f/180);
+      if(p.shape==='rect')ctx.fillRect(-p.r,-p.r/2,p.r*2,p.r);
+      else{ctx.beginPath();ctx.arc(0,0,p.r,0,Math.PI*2);ctx.fill();}
+      ctx.restore();
+      p.x+=p.vx;p.y+=p.vy;p.angle+=p.spin;p.vy+=0.05;
+    });
+    f++;
+    if(f<200)requestAnimationFrame(draw);
+    else ctx.clearRect(0,0,c.width,c.height);
+  })();
+}
+</script>
+</body>
+</html>
